@@ -1,4 +1,4 @@
-﻿const prixUnitaire = 5000;
+﻿const prixUnitaire = 25000;
 let quantite = 1;
 
 const quantiteEl = document.getElementById("quantite");
