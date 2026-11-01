@@ -3,32 +3,65 @@ const listePanierEl = document.getElementById("liste-panier");
 const totalPanierEl = document.getElementById("total-panier");
 const messageEl = document.getElementById("message");
 const boutonCommander = document.getElementById("commander");
+const compteurEl = document.getElementById("compteur-panier");
 
 let panier = [];
+const cartes = [];
 
 function formaterPrix(prix) {
   return prix.toLocaleString("fr-FR") + " FCFA";
 }
 
+function nomComplet(article) {
+  if (article.couleur) {
+    return article.nom + " (" + article.couleur + ")";
+  }
+  return article.nom;
+}
+
+function creerPetitBouton(texte, action) {
+  const bouton = document.createElement("button");
+  bouton.textContent = texte;
+  bouton.className = "retirer";
+  bouton.addEventListener("click", action);
+  return bouton;
+}
+
 function afficherPanier() {
   listePanierEl.innerHTML = "";
   let total = 0;
+  let nombreArticles = 0;
 
   panier.forEach(function (article, position) {
-    total = total + article.prix;
+    const sousTotal = article.prix * article.quantite;
+    total = total + sousTotal;
+    nombreArticles = nombreArticles + article.quantite;
 
     const ligne = document.createElement("li");
-    ligne.textContent = article.nom + " - pointure " + article.taille + " - " + formaterPrix(article.prix) + " ";
+    ligne.textContent =
+      nomComplet(article) + " - pointure " + article.taille +
+      " - " + formaterPrix(article.prix) + " x " + article.quantite +
+      " = " + formaterPrix(sousTotal) + " ";
 
-    const retirer = document.createElement("button");
-    retirer.textContent = "Retirer";
-    retirer.className = "retirer";
-    retirer.addEventListener("click", function () {
+    ligne.appendChild(creerPetitBouton("-", function () {
+      if (article.quantite > 1) {
+        article.quantite = article.quantite - 1;
+      } else {
+        panier.splice(position, 1);
+      }
+      afficherPanier();
+    }));
+
+    ligne.appendChild(creerPetitBouton("+", function () {
+      article.quantite = article.quantite + 1;
+      afficherPanier();
+    }));
+
+    ligne.appendChild(creerPetitBouton("Retirer", function () {
       panier.splice(position, 1);
       afficherPanier();
-    });
+    }));
 
-    ligne.appendChild(retirer);
     listePanierEl.appendChild(ligne);
   });
 
@@ -37,37 +70,124 @@ function afficherPanier() {
   }
 
   totalPanierEl.textContent = formaterPrix(total);
+  if (compteurEl) {
+    compteurEl.textContent = nombreArticles;
+  }
 }
 
 produits.forEach(function (produit) {
+  let couleurs = [{ nom: "", image: produit.image || "" }];
+  if (produit.couleurs && produit.couleurs.length > 0) {
+    couleurs = produit.couleurs;
+  }
+
+  let choixActif = couleurs.length > 1;
+  if (produit.choixCouleur !== undefined) {
+    choixActif = produit.choixCouleur;
+  }
+
+  const emballage = produit.emballage || "boite";
+  let etiquette = "Livrée avec boîte";
+  if (emballage === "housse") {
+    etiquette = "Livrée en housse (sans boîte)";
+  }
+
   const carte = document.createElement("article");
   carte.className = "carte";
+  carte.dataset.emballage = emballage;
 
-  let options = "";
+  let optionsTailles = "";
   produit.tailles.forEach(function (taille) {
-    options += "<option value=\"" + taille + "\">" + taille + "</option>";
+    optionsTailles += "<option value=\"" + taille + "\">" + taille + "</option>";
   });
 
-  let photo = "";
-  if (produit.image) {
-    photo = "<img src=\"" + produit.image + "\" alt=\"" + produit.nom + "\">";
+  let blocCouleur = "";
+  if (choixActif) {
+    let optionsCouleurs = "";
+    couleurs.forEach(function (couleur, index) {
+      optionsCouleurs += "<option value=\"" + index + "\">" + couleur.nom + "</option>";
+    });
+    blocCouleur =
+      "<div class=\"ligne-choix\"><label>Couleur : <select class=\"choix-couleur\">" +
+      optionsCouleurs + "</select></label></div>";
   }
 
   carte.innerHTML =
-    photo +
+    "<div class=\"zone-photo\"></div>" +
     "<h2>" + produit.nom + "</h2>" +
+    "<span class=\"etiquette\">" + etiquette + "</span>" +
+    blocCouleur +
     "<p class=\"prix\">" + formaterPrix(produit.prix) + "</p>" +
-    "<label>Pointure : <select>" + options + "</select></label><br>" +
+    "<label>Pointure : <select class=\"choix-taille\">" + optionsTailles + "</select></label><br>" +
     "<button>Ajouter au panier</button>";
 
+  const zonePhoto = carte.querySelector(".zone-photo");
+  const choixCouleur = carte.querySelector(".choix-couleur");
+
+  function couleurChoisie() {
+    if (choixCouleur) {
+      return couleurs[choixCouleur.value];
+    }
+    return couleurs[0];
+  }
+
+  function afficherPhoto() {
+    const couleur = couleurChoisie();
+    if (couleur.image) {
+      zonePhoto.innerHTML = "<img src=\"" + couleur.image + "\" alt=\"" + produit.nom + " " + couleur.nom + "\">";
+    } else {
+      zonePhoto.innerHTML = "<div class=\"sans-photo\">Photo bientôt</div>";
+    }
+  }
+
+  afficherPhoto();
+
+  if (choixCouleur) {
+    choixCouleur.addEventListener("change", afficherPhoto);
+  }
+
   carte.querySelector("button").addEventListener("click", function () {
-    const taille = carte.querySelector("select").value;
-    panier.push({ nom: produit.nom, prix: produit.prix, taille: taille });
-    messageEl.textContent = produit.nom + " (pointure " + taille + ") ajouté au panier.";
+    const taille = carte.querySelector(".choix-taille").value;
+    let couleur = "";
+    if (choixActif) {
+      couleur = couleurChoisie().nom;
+    }
+
+    const existant = panier.find(function (article) {
+      return article.nom === produit.nom && article.taille === taille && article.couleur === couleur;
+    });
+
+    if (existant) {
+      existant.quantite = existant.quantite + 1;
+    } else {
+      panier.push({ nom: produit.nom, prix: produit.prix, taille: taille, couleur: couleur, quantite: 1 });
+    }
+
+    messageEl.textContent = nomComplet({ nom: produit.nom, couleur: couleur }) + ", pointure " + taille + " ajouté au panier.";
     afficherPanier();
   });
 
+  cartes.push(carte);
   catalogue.appendChild(carte);
+});
+
+document.querySelectorAll(".filtres button").forEach(function (bouton) {
+  bouton.addEventListener("click", function () {
+    const filtre = bouton.dataset.filtre;
+
+    document.querySelectorAll(".filtres button").forEach(function (autre) {
+      autre.classList.remove("actif");
+    });
+    bouton.classList.add("actif");
+
+    cartes.forEach(function (carte) {
+      if (filtre === "tous" || carte.dataset.emballage === filtre) {
+        carte.style.display = "";
+      } else {
+        carte.style.display = "none";
+      }
+    });
+  });
 });
 
 boutonCommander.addEventListener("click", function () {
@@ -79,8 +199,10 @@ boutonCommander.addEventListener("click", function () {
   let total = 0;
   let texte = "Bonjour, je souhaite commander :\n";
   panier.forEach(function (article) {
-    total = total + article.prix;
-    texte += "- " + article.nom + ", pointure " + article.taille + ", " + formaterPrix(article.prix) + "\n";
+    const sousTotal = article.prix * article.quantite;
+    total = total + sousTotal;
+    texte += "- " + nomComplet(article) + ", pointure " + article.taille +
+      ", quantité " + article.quantite + ", " + formaterPrix(sousTotal) + "\n";
   });
   texte += "Total : " + formaterPrix(total);
 

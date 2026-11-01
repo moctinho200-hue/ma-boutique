@@ -149,3 +149,37 @@ button:hover {
     height: 220px;
   }
 }
+
+.ligne-choix {
+  margin: 8px 0 0;
+}
+
+.filtres {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.filtres button {
+  background: white;
+  color: #e67e22;
+  border: 2px solid #e67e22;
+  padding: 8px 18px;
+}
+
+.filtres button.actif {
+  background: #e67e22;
+  color: white;
+}
+
+.etiquette {
+  display: inline-block;
+  font-size: 0.8rem;
+  background: #fff3e6;
+  color: #b85c00;
+  padding: 4px 10px;
+  border-radius: 12px;
+  margin: 4px 0;
+}
