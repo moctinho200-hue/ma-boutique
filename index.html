@@ -10,8 +10,19 @@
   <main class="carte">
     <h1>Nom de ton produit numérique</h1>
     <p>Une courte description de ce que le client va obtenir.</p>
-    <p class="prix">5 000 FCFA</p>
-    <button>Acheter</button>
+    <p class="prix">5 000 FCFA l'unité</p>
+
+    <div class="quantite">
+      <button id="moins">-</button>
+      <span id="quantite">1</span>
+      <button id="plus">+</button>
+    </div>
+
+    <p>Total : <strong id="total">5 000</strong> FCFA</p>
+    <button id="acheter">Acheter</button>
+    <p id="message"></p>
   </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
