@@ -1,7 +1,8 @@
 ﻿const produits = [
-  { nom: "Sandale cuir marron", prix: 8000, tailles: [40, 41, 42, 43, 44, 45] },
-  { nom: "Sandale sport noire", prix: 6000, tailles: [40, 41, 42, 43, 44, 45] },
-  { nom: "Claquette confort", prix: 4000, tailles: [40, 41, 42, 43, 44, 45] }
+  { nom: "Sandale cuir Hermes", prix: 25000, tailles: [40, 41, 42, 43, 44, 45] },
+  { nom: "Sandale sport noire", prix: 25000, tailles: [40, 41, 42, 43, 44, 45] },
+  { nom: "Claquette confort", prix: 25000, tailles: [40, 41, 42, 43, 44, 45] },
+  { nom: "Sandale cuir Marron", prix: 25000, tailles: [40, 41, 42, 43] },
 ];
 
 const catalogue = document.getElementById("catalogue");
