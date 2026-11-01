@@ -23,7 +23,7 @@ produits.forEach(function (produit) {
     options += "<option value=\"" + taille + "\">" + taille + "</option>";
   });
 
-  let photo = "";
+  let photo = "<div class=\"sans-photo\">Photo bientôt</div>";
   if (produit.image) {
     photo = "<img src=\"" + produit.image + "\" alt=\"" + produit.nom + "\">";
   }
@@ -48,5 +48,6 @@ produits.forEach(function (produit) {
 
   catalogue.appendChild(carte);
 });
+
 
 

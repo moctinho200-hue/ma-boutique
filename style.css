@@ -59,3 +59,25 @@ button {
   border-radius: 8px;
   margin-bottom: 12px;
 }
+
+.sans-photo {
+  height: 200px;
+  background: #eeeeee;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888888;
+  margin-bottom: 12px;
+}
+
+.sans-photo {
+  height: 200px;
+  background: #eeeeee;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888888;
+  margin-bottom: 12px;
+}
