@@ -1,26 +1,39 @@
 ﻿body {
   font-family: Arial, sans-serif;
   background: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
   margin: 0;
+  padding: 24px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.catalogue {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .carte {
   background: white;
-  padding: 32px;
+  padding: 24px;
   border-radius: 12px;
-  max-width: 400px;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .prix {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
   color: #e67e22;
+}
+
+select {
+  padding: 6px;
+  margin-bottom: 16px;
 }
 
 button {
@@ -33,11 +46,8 @@ button {
   cursor: pointer;
 }
 
-.quantite {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  margin: 16px 0;
-  font-size: 1.3rem;
+#message {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 24px;
 }

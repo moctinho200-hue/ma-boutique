@@ -1,29 +1,36 @@
-﻿const prixUnitaire = 25000;
-let quantite = 1;
+﻿const produits = [
+  { nom: "Sandale cuir marron", prix: 8000, tailles: [40, 41, 42, 43, 44, 45] },
+  { nom: "Sandale sport noire", prix: 6000, tailles: [40, 41, 42, 43, 44, 45] },
+  { nom: "Claquette confort", prix: 4000, tailles: [40, 41, 42, 43, 44, 45] }
+];
 
-const quantiteEl = document.getElementById("quantite");
-const totalEl = document.getElementById("total");
+const catalogue = document.getElementById("catalogue");
 const messageEl = document.getElementById("message");
 
-function afficher() {
-  quantiteEl.textContent = quantite;
-  totalEl.textContent = (prixUnitaire * quantite).toLocaleString("fr-FR");
-  messageEl.textContent = "";
+function formaterPrix(prix) {
+  return prix.toLocaleString("fr-FR") + " FCFA";
 }
 
-document.getElementById("plus").addEventListener("click", function () {
-  quantite = quantite + 1;
-  afficher();
-});
+produits.forEach(function (produit) {
+  const carte = document.createElement("article");
+  carte.className = "carte";
 
-document.getElementById("moins").addEventListener("click", function () {
-  if (quantite > 1) {
-    quantite = quantite - 1;
-    afficher();
-  }
-});
+  let options = "";
+  produit.tailles.forEach(function (taille) {
+    options += "<option value=\"" + taille + "\">" + taille + "</option>";
+  });
 
-document.getElementById("acheter").addEventListener("click", function () {
-  const total = (prixUnitaire * quantite).toLocaleString("fr-FR");
-  messageEl.textContent = "Merci ! " + quantite + " exemplaire(s) pour " + total + " FCFA.";
+  carte.innerHTML =
+    "<h2>" + produit.nom + "</h2>" +
+    "<p class=\"prix\">" + formaterPrix(produit.prix) + "</p>" +
+    "<label>Pointure : <select>" + options + "</select></label><br>" +
+    "<button>Commander</button>";
+
+  carte.querySelector("button").addEventListener("click", function () {
+    const taille = carte.querySelector("select").value;
+    messageEl.textContent =
+      "Commande : " + produit.nom + ", pointure " + taille + ", " + formaterPrix(produit.prix) + ".";
+  });
+
+  catalogue.appendChild(carte);
 });
