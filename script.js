@@ -8,6 +8,7 @@ const messageEl = document.getElementById("message");
 function afficher() {
   quantiteEl.textContent = quantite;
   totalEl.textContent = (prixUnitaire * quantite).toLocaleString("fr-FR");
+  messageEl.textContent = "";
 }
 
 document.getElementById("plus").addEventListener("click", function () {
