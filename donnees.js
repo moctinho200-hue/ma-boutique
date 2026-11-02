@@ -3,8 +3,9 @@
 const produits = [
   {
     nom: "Sandale cuir Hermes",
-    prix: 25000, emballage: "boite",
-    choixCouleur: true,
+    prix: 25000,
+    emballage: "boite",
+    choixCouleur: false,
     tailles: [40, 41, 42, 43, 44, 45],
     couleurs: [
       { nom: "Noir", image: "images/hermes.jpg" }
@@ -12,8 +13,9 @@ const produits = [
   },
   {
     nom: "Sandale sport noire",
-    prix: 25000, emballage: "boite",
-    choixCouleur: true,
+    prix: 25000,
+    emballage: "boite",
+    choixCouleur: false,
     tailles: [40, 41, 42, 43, 44, 45],
     couleurs: [
       { nom: "Noir", image: "images/sport-noire.jpg" }
@@ -21,27 +23,25 @@ const produits = [
   },
   {
     nom: "Claquette confort",
-    prix: 25000, emballage: "boite",
-    choixCouleur: true,
+    prix: 25000,
+    emballage: "boite",
+    choixCouleur: false,
     tailles: [40, 41, 42, 43, 44, 45],
     couleurs: [
       { nom: "Gris", image: "images/claquette.jpg" }
     ]
   },
   {
-    nom: "Sandale cuir Chypre",
-    prix: 25000, emballage: "boite",
-    choixCouleur: true,
+    nom: "Sandale cuir Chypre kaki",
+    prix: 25000,
+    emballage: "boite",
+    choixCouleur: false,
     tailles: [40, 41, 42, 43, 44, 45],
     couleurs: [
       { nom: "Kaki", image: "images/chypre.jpg" }
     ]
   }
 ];
-
-
-
-
 const lotHousse = {
   titre: "Sandales à 17 000 FCFA",
   nomArticle: "Sandale en housse",
@@ -68,7 +68,4 @@ const lotHousse = {
 };
 
 const ouvrirWhatsAppApresAjout = false;
-
-const ouvrirWhatsAppApresAjout = false;
-
 
