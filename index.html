@@ -7,11 +7,13 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a href="#panier" class="bouton-panier">Panier (<span id="compteur-panier">0</span>)</a>
   <h1>Sandales pour hommes</h1>
-  <div class="filtres"><button data-filtre="tous" class="actif">Tous</button><button data-filtre="boite">Avec boîte</button><button data-filtre="housse">Sans boîte (17 000 FCFA)</button></div>
-  <section id="catalogue" class="catalogue"></section>
 
-  <section class="panier">
+  <section id="catalogue" class="catalogue"></section>
+  <section id="lot-housse" class="lot-housse"></section>
+
+  <section class="panier" id="panier">
     <h2>Mon panier</h2>
     <ul id="liste-panier"></ul>
     <p>Total : <strong id="total-panier">0 FCFA</strong></p>
@@ -21,6 +23,6 @@
 
   <script src="donnees.js"></script>
   <script src="script.js"></script>
+  <script src="housse.js"></script>
 </body>
 </html>
-
