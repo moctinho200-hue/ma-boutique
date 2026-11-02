@@ -66,3 +66,9 @@ const lotHousse = {
     "images/housse/16.jpg"
   ]
 };
+
+const ouvrirWhatsAppApresAjout = false;
+
+const ouvrirWhatsAppApresAjout = false;
+
+

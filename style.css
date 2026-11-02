@@ -226,3 +226,25 @@ button:hover {
   font-weight: bold;
   margin-top: 4px;
 }
+
+.galerie {
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+}
+
+.galerie figure {
+  cursor: default;
+  border: 1px solid #eeeeee;
+  padding: 8px;
+}
+
+.galerie select {
+  width: 100%;
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+.galerie button {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  margin-top: 8px;
+}

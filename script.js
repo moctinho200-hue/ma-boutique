@@ -163,7 +163,7 @@ produits.forEach(function (produit) {
       panier.push({ nom: produit.nom, prix: produit.prix, taille: taille, couleur: couleur, quantite: 1 });
     }
 
-    messageEl.textContent = nomComplet({ nom: produit.nom, couleur: couleur }) + ", pointure " + taille + " ajouté au panier.";
+    messageEl.textContent = nomComplet({ nom: produit.nom, couleur: couleur }) + ", pointure " + taille + " ajouté au panier."; if (typeof ouvrirWhatsAppApresAjout !== "undefined" && ouvrirWhatsAppApresAjout) { boutonCommander.click(); }
     afficherPanier();
   });
 
@@ -211,3 +211,4 @@ boutonCommander.addEventListener("click", function () {
 });
 
 afficherPanier();
+
