@@ -248,3 +248,55 @@ button:hover {
   font-size: 0.9rem;
   margin-top: 8px;
 }
+
+.carte img,
+.galerie img {
+  cursor: zoom-in;
+}
+
+.zoom-fond {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.zoom-fond.ouvert {
+  display: flex;
+}
+
+.zoom-img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.zoom-legende {
+  color: white;
+  margin: 12px 0 0;
+  text-align: center;
+}
+
+.zoom-fermer {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 1.8rem;
+  line-height: 1;
+  border-radius: 50%;
+  background: white;
+  color: #333333;
+}
+
+.zoom-fermer:hover {
+  background: #eeeeee;
+}
