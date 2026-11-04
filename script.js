@@ -8,6 +8,7 @@ const compteurEl = document.getElementById("compteur-panier");
 let panier = [];
 const cartes = [];
 
+function urlPhoto(chemin) { return new URL(chemin, window.location.href).href; }
 function formaterPrix(prix) {
   return prix.toLocaleString("fr-FR") + " FCFA";
 }
@@ -160,7 +161,7 @@ produits.forEach(function (produit) {
     if (existant) {
       existant.quantite = existant.quantite + 1;
     } else {
-      panier.push({ nom: produit.nom, prix: produit.prix, taille: taille, couleur: couleur, quantite: 1 });
+      panier.push({ nom: produit.nom, prix: produit.prix, taille: taille, couleur: couleur, quantite: 1, image: couleurChoisie().image });
     }
 
     messageEl.textContent = nomComplet({ nom: produit.nom, couleur: couleur }) + ", pointure " + taille + " ajouté au panier."; if (typeof ouvrirWhatsAppApresAjout !== "undefined" && ouvrirWhatsAppApresAjout) { boutonCommander.click(); }
@@ -202,7 +203,7 @@ boutonCommander.addEventListener("click", function () {
     const sousTotal = article.prix * article.quantite;
     total = total + sousTotal;
     texte += "- " + nomComplet(article) + ", pointure " + article.taille +
-      ", quantité " + article.quantite + ", " + formaterPrix(sousTotal) + "\n";
+      ", quantité " + article.quantite + ", " + formaterPrix(sousTotal) + (article.image ? "\n   Photo : " + urlPhoto(article.image) : "") + "\n";
   });
   texte += "Total : " + formaterPrix(total);
 
@@ -211,4 +212,7 @@ boutonCommander.addEventListener("click", function () {
 });
 
 afficherPanier();
+
+
+
 

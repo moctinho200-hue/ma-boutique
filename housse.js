@@ -34,7 +34,7 @@ if (zoneLot && typeof lotHousse !== "undefined" && lotHousse.images.length > 0) 
       if (existant) {
         existant.quantite = existant.quantite + 1;
       } else {
-        panier.push({ nom: nom, prix: lotHousse.prix, taille: taille, couleur: "", quantite: 1 });
+        panier.push({ nom: nom, prix: lotHousse.prix, taille: taille, couleur: "", quantite: 1, image: chemin });
       }
 
       messageEl.textContent = nom + ", pointure " + taille + " ajouté au panier.";
@@ -48,3 +48,4 @@ if (zoneLot && typeof lotHousse !== "undefined" && lotHousse.images.length > 0) 
     galerie.appendChild(figure);
   });
 }
+
