@@ -6,6 +6,9 @@ const boutonCommander = document.getElementById("commander");
 const compteurEl = document.getElementById("compteur-panier");
 
 let panier = [];
+try { const sauvegarde = localStorage.getItem("panierBoutique"); if (sauvegarde) { panier = JSON.parse(sauvegarde); } } catch (erreur) { panier = []; }
+if (!Array.isArray(panier)) { panier = []; }
+function sauvegarderPanier() { try { localStorage.setItem("panierBoutique", JSON.stringify(panier)); } catch (erreur) { } }
 const cartes = [];
 
 function urlPhoto(chemin) { return new URL(chemin, window.location.href).href; }
@@ -70,7 +73,7 @@ function afficherPanier() {
     listePanierEl.innerHTML = "<li>Votre panier est vide.</li>";
   }
 
-  totalPanierEl.textContent = formaterPrix(total);
+  totalPanierEl.textContent = formaterPrix(total); sauvegarderPanier();
   if (compteurEl) {
     compteurEl.textContent = nombreArticles;
   }
@@ -212,6 +215,8 @@ boutonCommander.addEventListener("click", function () {
 });
 
 afficherPanier();
+
+
 
 
 
